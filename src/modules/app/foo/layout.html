@@ -1,0 +1,17 @@
+<div>
+  <h5>Login</h5>
+  <form role='form', name='login_form' novalidate>
+    <span ng-if='login_form.$submitted'> Incorrect username or password.</span>
+    <br>
+    <input type='email' name='username' ng-model='user.username' required>
+    <br>
+    <span ng-show='login_form.username.$touched && login_form.username.$error.email'> This is not a valid email.</span>
+    <span ng-show='login_form.username.$touched && login_form.username.$error.required'> You must enter a username.</span>
+    <br> 
+    <input type='password' name='password' ng-model='user.password' required=''>
+    <br>   
+    <span ng-show='login_form.password.$touched && login_form.password.$error.required'> You must enter a password.</span>
+    <button type='submit' ng-click='login(user)' ng-disabled='login_form.username.$error.email || login_form.$invalid'> Login</button> 
+    <br>
+</form>
+</div>
