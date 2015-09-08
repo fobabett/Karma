@@ -1,17 +1,40 @@
 'use strict';
 
-describe('MyController', function () {
-
+describe('controllerSpec', function() {
+  beforeEach(angular.mock.module('ui.router'));
   beforeEach(angular.mock.module('test.foo'));
+  beforeEach(angular.mock.module('test.common.services'));
 
-  describe('getFullName()', function() {
-    it('should handle names correctly', inject(function($controller) {
-      var myController = $controller('MyController');
+  describe('loginController', function(){
+    var scope, ctrl, authenticationService, $httpBackend;
 
-      myController.firstName = 'Te';
-      myController.lastName = 'Vallee';
+    beforeEach(function() {
+      authenticationService = {}
+      angular.mock.module(function($provide) {
+        $provide.value('AuthenticationService', authenticationService)
+      })
+    })
 
-      myController.getFullName().should.equal('Te Vallee');
+    beforeEach(inject(function($httpBackend, $controller, $rootScope, authenticationService) {
+      this.$httpBackend = $httpBackend;
+      this.scope = $rootScope.$new();
+      ctrl = $controller('LoginController', {
+        $scope: this.scope,
+        authenticationService: authenticationService
+      });
     }));
+
+    describe("successfully logging in", function() {
+      it("should redirect to /accountSession", function() {
+        this.$httpBackend.expectPOST('/accountSession').respond(200);
+
+        this.scope.login();
+        this.$httpBackend.flush();
+
+        expect(this.foo).toHaveBeenCalledWith('/accountSession');
+      })
+    })
+
   });
-});
+
+})

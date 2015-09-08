@@ -2,5 +2,5 @@
 
 module.exports =
   angular.module('test.common.services', [])
-  .service('authenticationService', require('./authenticationService'));
+  .service('AuthenticationService', require('./AuthenticationService'));
   //.factory('fooService', require('./fooService'));

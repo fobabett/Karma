@@ -9,7 +9,7 @@ module.exports =
     .state('login', {
       url: '',
       templateUrl: 'app/foo/layout.html',
-      controller: 'MyController'
+      controller: 'LoginController'
     });
   })
-  .controller('MyController', require('./MyController'));
+  .controller('LoginController', require('./LoginController'));
